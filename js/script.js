@@ -87,6 +87,8 @@ function generateTitleLinks(){
         console.log("HTML: ", linkHTML);
 
         /* insert link into titleList */
+
+        document.querySelector(optTitleListSelector).insertAdjacentHTML('beforeend', linkHTML);
     }
 }
 
