@@ -57,7 +57,12 @@ const optArticleSelector = '.post',
 
 function generateTitleLinks(){
 
-    /* remove contents of titleList */
+    /* [IN PROGRESS] remove contents of titleList */
+
+    const titleList = document.querySelector(optTitleListSelector);
+    console.log("Lista tytułów: ", titleList);
+
+    titleList.innerHTML = '';
 
     /* for each article */
 
