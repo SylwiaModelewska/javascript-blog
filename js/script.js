@@ -69,6 +69,8 @@ function generateTitleLinks(){
     const articles = document.querySelectorAll(optArticleSelector);
     console.log("Lista artykułów: ", articles);
 
+    let html = '';
+
     for(let article of articles){
     
         /* get the article id */
@@ -88,8 +90,11 @@ function generateTitleLinks(){
 
         /* insert link into titleList */
 
-        document.querySelector(optTitleListSelector).insertAdjacentHTML('beforeend', linkHTML);
+        html = html + linkHTML;
+        console.log("Zawartość zmiennej html: ", html);
     }
+
+    titleList.innerHTML = html;
 }
 
 generateTitleLinks();
