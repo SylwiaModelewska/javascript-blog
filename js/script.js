@@ -66,7 +66,7 @@ function generateTitleLinks(){
   let html = '';
 
   for(let article of articles){
-    
+
     /* get the article id */
 
     const articleId = article.getAttribute('id');
