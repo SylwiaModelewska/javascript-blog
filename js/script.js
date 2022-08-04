@@ -227,7 +227,7 @@ function generateAuthors(){
 
     /* creating inner html with by*/
     const innerText = 'by <a href="#author-' + authorAtrr  + '">' + authorAtrr + '</a>';
-    console.log('Przekazywane do wrappera: ', innerText);
+    //console.log('Przekazywane do wrappera: ', innerText);
 
     /* inserting content into wrapper */
     authorWrapper.innerHTML = innerText;
@@ -235,3 +235,21 @@ function generateAuthors(){
 }
 
 generateAuthors();
+
+//HANDLING AUTHORS CLICK
+
+function authorClickHandler(event){
+  console.log('Author link has been clicked');
+}
+
+function addClickListenersToAuthors(){
+  /* find all author links */
+  const links = document.querySelectorAll('.post-author a');
+
+  for(let link of links){
+    /* add tagClickHandler as event listener for that link */
+    link.addEventListener('click', authorClickHandler);
+  }
+}
+
+addClickListenersToAuthors();
