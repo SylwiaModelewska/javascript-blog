@@ -239,7 +239,23 @@ generateAuthors();
 //HANDLING AUTHORS CLICK
 
 function authorClickHandler(event){
-  console.log('Author link has been clicked');
+  
+  /* preventing default action for this event */
+  event.preventDefault();
+
+  const clickedElement = this;
+  
+  /* finding "href" of the clicked element */
+  const href = clickedElement.getAttribute('href');
+  console.log('Href linka: ', href);
+
+  /* extracting author from the "href" constant */
+  const author = href.replace('#author-', '');
+  console.log('Wyciągnięty autor z href: ', author);
+
+  /* execute function "generateTitleLinks" with article selector as argument */
+  generateTitleLinks('[data-author="' + author + '"]');
+
 }
 
 function addClickListenersToAuthors(){
