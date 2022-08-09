@@ -106,6 +106,22 @@ generateTitleLinks();
 
 // CREATING THE LIST OF TAGS
 
+function calculateTagsParams(tags){
+  const params = {
+    max: 0,
+    min: 999999
+  };
+
+  for (let tag in tags){
+    //console.log(tag + ' is used ' + tags[tag] + ' times');
+
+    params.max = Math.max(tags[tag], params.max);
+    params.min = Math.min(tags[tag], params.min);
+  }
+
+  return params;
+}
+
 function generateTags(){
 
   /* [NEW] create a new variable allTags with an empty object */
@@ -119,7 +135,7 @@ function generateTags(){
   for(let article of articles){
 
     /* find tags wrapper */
-    const tagList = article.querySelector(optArticleTagsSelector);
+    const tagListArticle = article.querySelector(optArticleTagsSelector);
     //console.log('Wrapper tagów html: ', tagList);
 
     /* make html variable with empty string */
@@ -155,13 +171,16 @@ function generateTags(){
     /* END LOOP: for each tag */
 
     /* insert HTML of all the links into the tags wrapper */
-    //tagList.innerHTML = html;
+    tagListArticle.innerHTML = html;
   }
   /* END LOOP: for every article: */
   console.log('Zawartość obiektu allTags: ', allTags);
 
   /* [NEW] find list of tags in right column */
-  const tagList = document.querySelector(optTagsListSelector);
+  const tagListCloud = document.querySelector(optTagsListSelector);
+
+  const tagsParams = calculateTagsParams(allTags);
+  console.log('tagParams: ', tagsParams);
 
   /* [NEW] create variable for all links HTML code */
   let allTagsHTML = '';
@@ -174,7 +193,7 @@ function generateTags(){
   /* [NEW] END LOOP: for each tag in allTags: */
 
   /* [NEW] add html from allTagsHTML to tagList */
-  tagList.innerHTML = allTagsHTML;
+  tagListCloud.innerHTML = allTagsHTML;
 }
 
 generateTags();
