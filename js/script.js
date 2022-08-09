@@ -200,7 +200,7 @@ function generateTags(){
   /* [NEW] START LOOP: for each tag in allTags: */
   for(let tag in allTags){
     /* [NEW] generate code of a link and add it to allTagsHTML */
-    const tagLinkHTML = '<li><a class="' + optCloudClassPrefix + calculateTagClass(allTags[tag], tagsParams) + '" href="#tag-' + tag + '">' + tag + '</a><span> (' + allTags[tag] + ')</span></li>';
+    const tagLinkHTML = '<li class="' + optCloudClassPrefix + calculateTagClass(allTags[tag], tagsParams) + '"><a href="#tag-' + tag + '">' + tag + '</a></li>';
     console.log('tagLinkHTML: ', tagLinkHTML);
     allTagsHTML += tagLinkHTML;
   }
@@ -257,7 +257,7 @@ function tagClickHandler(event){
 function addClickListenersToTags(){
 
   /* find all links to tags */
-  const links = document.querySelectorAll('.post-tags .list a');
+  const links = document.querySelectorAll('.list a');
 
   /* START LOOP: for each link */
   for(let link of links){
