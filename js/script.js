@@ -1,5 +1,19 @@
 'use strict';
 
+// OPTS
+
+const opts = {
+  optArticleSelector: '.post',
+  optTitleSelector: '.post-title',
+  optTitleListSelector: '.titles',
+  optArticleTagsSelector: '.post-tags .list',
+  optArticleAuthorSelector: '.post-author',
+  optTagsListSelector: '.tags.list',
+  optCloudClassCount: 5,
+  optCloudClassPrefix: 'tag-size-',
+  optAuthorsListSelector: '.list.authors'
+};
+
 function titleClickHandler(event){
   event.preventDefault();
 
@@ -40,33 +54,24 @@ function titleClickHandler(event){
   /* [DONE] add class 'active' to the correct article */
 
   targetArticle.classList.add('active');
+
 }
 
 
 // CREATING THE LIST OF LINKS
 
-const optArticleSelector = '.post',
-  optTitleSelector = '.post-title',
-  optTitleListSelector = '.titles',
-  optArticleTagsSelector = '.post-tags .list',
-  optArticleAuthorSelector = '.post-author',
-  optTagsListSelector = '.tags.list',
-  optCloudClassCount  = 5,
-  optCloudClassPrefix = 'tag-size-',
-  optAuthorsListSelector = '.list.authors';
-
 function generateTitleLinks(customSelector = ''){
 
   /* [DONE] remove contents of titleList */
 
-  const titleList = document.querySelector(optTitleListSelector);
+  const titleList = document.querySelector(opts.optTitleListSelector);
   //console.log("Lista tytułów: ", titleList);
 
   titleList.innerHTML = '';
 
   /* [DONE] for each article */
 
-  const articles = document.querySelectorAll(optArticleSelector + customSelector);
+  const articles = document.querySelectorAll(opts.optArticleSelector + customSelector);
   //console.log('Selector bez custom: ', optArticleSelector);
   //console.log('Custom: ', customSelector);
   //console.log('Selector z custom: ', optArticleSelector + customSelector);
@@ -82,7 +87,7 @@ function generateTitleLinks(customSelector = ''){
 
     /* find the title element & get the title from the title element */
 
-    const articleTitle = article.querySelector(optTitleSelector).innerHTML;
+    const articleTitle = article.querySelector(opts.optTitleSelector).innerHTML;
     //console.log('Tytuł artykułu: ', articleTitle);
 
     /* create HTML of the link */
@@ -97,6 +102,7 @@ function generateTitleLinks(customSelector = ''){
   }
 
   titleList.innerHTML = html;
+  //console.log('Lista tytułów: ', html);
 
   const links = document.querySelectorAll('.titles a');
 
@@ -104,8 +110,6 @@ function generateTitleLinks(customSelector = ''){
     link.addEventListener('click', titleClickHandler);
   }
 }
-
-generateTitleLinks();
 
 // CREATING THE LIST OF TAGS
 
@@ -130,7 +134,7 @@ function calculateTagClass(count, params){
   const normalizedMax = params.max - params.min;
 
   const percentage = normalizedCount / normalizedMax;
-  const classNumber = Math.floor( percentage * (optCloudClassCount - 1) + 1 );
+  const classNumber = Math.floor( percentage * (opts.optCloudClassCount - 1) + 1 );
 
   return classNumber;
 }
@@ -141,14 +145,14 @@ function generateTags(){
   let allTags = {};
 
   /* find all articles */
-  const articles = document.querySelectorAll(optArticleSelector);
+  const articles = document.querySelectorAll(opts.optArticleSelector);
   //console.log('Lista artykułów do tagów: ', articles);
 
   /* START LOOP: for every article: */
   for(let article of articles){
 
     /* find tags wrapper */
-    const tagListArticle = article.querySelector(optArticleTagsSelector);
+    const tagListArticle = article.querySelector(opts.optArticleTagsSelector);
     //console.log('Wrapper tagów html: ', tagList);
 
     /* make html variable with empty string */
@@ -190,7 +194,7 @@ function generateTags(){
   //console.log('Zawartość obiektu allTags: ', allTags);
 
   /* [NEW] find list of tags in right column */
-  const tagListCloud = document.querySelector(optTagsListSelector);
+  const tagListCloud = document.querySelector(opts.optTagsListSelector);
 
   const tagsParams = calculateTagsParams(allTags);
   //console.log('tagParams: ', tagsParams);
@@ -201,7 +205,7 @@ function generateTags(){
   /* [NEW] START LOOP: for each tag in allTags: */
   for(let tag in allTags){
     /* [NEW] generate code of a link and add it to allTagsHTML */
-    const tagLinkHTML = '<li class="' + optCloudClassPrefix + calculateTagClass(allTags[tag], tagsParams) + '"><a href="#tag-' + tag + '">' + tag + '</a></li>';
+    const tagLinkHTML = '<li class="' + opts.optCloudClassPrefix + calculateTagClass(allTags[tag], tagsParams) + '"><a href="#tag-' + tag + '">' + tag + '</a></li>';
     //console.log('tagLinkHTML: ', tagLinkHTML);
     allTagsHTML += tagLinkHTML;
   }
@@ -277,12 +281,12 @@ function generateAuthors(){
   let allAuthors = {};
 
   /* finding all articles */
-  const articles = document.querySelectorAll(optArticleSelector);
+  const articles = document.querySelectorAll(opts.optArticleSelector);
 
   for(let article of articles){
 
     /* finding author wrapper */
-    const authorWrapper = article.querySelector(optArticleAuthorSelector);
+    const authorWrapper = article.querySelector(opts.optArticleAuthorSelector);
     //console.log('Wrapper: ', authorWrapper);
 
     /* getting author from data-author attribute */
@@ -305,10 +309,10 @@ function generateAuthors(){
     }
   }
 
-  console.log('Zawartość obiektu allAuthors: ', allAuthors);
+  //console.log('Zawartość obiektu allAuthors: ', allAuthors);
 
   /* [NEW] find list of authors in right column */
-  const authorList = document.querySelector(optAuthorsListSelector);
+  const authorList = document.querySelector(opts.optAuthorsListSelector);
   //console.log('Wrap listy autorów: ', authorList);
 
   /* [NEW] create variable for all links HTML code */
@@ -318,7 +322,7 @@ function generateAuthors(){
   for(let author in allAuthors){
   /* [NEW] generate code of a link and add it to allAuthorsHTML */
     const authorLinkHTML = '<li><a href="#author-' + author + '">' + author + '</a> (' + allAuthors[author] + ')</li>';
-    console.log('authorLinkHTML: ', authorLinkHTML);
+    //console.log('authorLinkHTML: ', authorLinkHTML);
     allAuthorsHTML += authorLinkHTML;
   }
   /* [NEW] END LOOP: for each tag in allTags: */
@@ -363,3 +367,4 @@ function addClickListenersToAuthors(){
 }
 
 addClickListenersToAuthors();
+generateTitleLinks();
