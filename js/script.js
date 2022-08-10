@@ -178,7 +178,7 @@ function generateTags(){
       //console.log('HTML łącznie: ', html);
 
       /* [NEW] check if this link is NOT already in allTags */
-      if(!allTags.hasOwnProperty(tag)){
+      if(!allTags[tag]){
         /* [NEW] add tag to allTags object */
         allTags[tag] = 1;
       } else {
@@ -301,7 +301,7 @@ function generateAuthors(){
     authorWrapper.innerHTML = innerText;
 
     /* [NEW] check if this link is NOT already in allTags */
-    if(!allAuthors.hasOwnProperty(authorAtrr)){
+    if(!allAuthors[authorAtrr]){
       /* [NEW] add tag to allTags object */
       allAuthors[authorAtrr] = 1;
     } else {
