@@ -1,5 +1,11 @@
 'use strict';
 
+const templates = {
+  articleLink: Handlebars.compile(document.querySelector('#template-article-link').innerHTML),
+  articleTag: Handlebars.compile(document.querySelector('#template-article-tag').innerHTML),
+  articleAuthor: Handlebars.compile(document.querySelector('#template-article-author').innerHTML)
+}
+
 // OPTS
 
 const opts = {
@@ -92,7 +98,8 @@ function generateTitleLinks(customSelector = ''){
 
     /* create HTML of the link */
 
-    const linkHTML = '<li><a href="#' + articleId + '"><span>' + articleTitle + '</span></a></li>';
+    const linkHTMLData = {id: articleId, title: articleTitle};
+    const linkHTML = templates.articleLink(linkHTMLData);
     //console.log("HTML: ", linkHTML);
 
     /* insert link into titleList */
@@ -170,7 +177,8 @@ function generateTags(){
     for(let tag of articleTagsArray ){
 
       /* generate HTML of the link */
-      const linkHTML = '<li><a href="#tag-' + tag  + '">' + tag + '</a></li>\n';
+      const linkHTMLData = {tagName: tag};
+      const linkHTML = templates.articleTag(linkHTMLData);
       //console.log('Link html: ', linkHTML);
 
       /* add generated code to html variable */
@@ -294,7 +302,8 @@ function generateAuthors(){
     //console.log('Autor - Atrybut: ', authorAtrr);
 
     /* creating inner html with by*/
-    const innerText = 'by <a href="#author-' + authorAtrr  + '">' + authorAtrr + '</a>';
+    const innerTextData = {author: authorAtrr};
+    const innerText = templates.articleAuthor(innerTextData);
     //console.log('Przekazywane do wrappera: ', innerText);
 
     /* inserting content into wrapper */
