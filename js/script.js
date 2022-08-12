@@ -120,6 +120,8 @@ function generateTitleLinks(customSelector = ''){
   }
 }
 
+generateTitleLinks();
+
 // CREATING THE LIST OF TAGS
 
 function calculateTagsParams(tags){
@@ -280,7 +282,7 @@ function tagClickHandler(event){
 function addClickListenersToTags(){
 
   /* find all links to tags */
-  const links = document.querySelectorAll('.list a');
+  const links = document.querySelectorAll('.post-tags .list a, .list.tags a');
 
   /* START LOOP: for each link */
   for(let link of links){
@@ -392,4 +394,3 @@ function addClickListenersToAuthors(){
 }
 
 addClickListenersToAuthors();
-generateTitleLinks();
